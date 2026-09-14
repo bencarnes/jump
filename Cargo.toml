@@ -1,0 +1,27 @@
+[package]
+name = "jump"
+version = "0.1.0"
+edition = "2024"
+description = "A visual, keyboard-driven filesystem navigator for the terminal that leaves your shell in the directory you picked."
+license = "MIT"
+
+[[bin]]
+name = "jump"
+path = "src/main.rs"
+
+# Dependencies are deliberately limited to the ones microsoft/edit uses:
+# `windows-sys` on Windows and `libc` on Unix. Nothing else.
+[target.'cfg(windows)'.dependencies.windows-sys]
+version = "0.61"
+features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Console",
+]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
